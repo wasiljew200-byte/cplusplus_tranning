@@ -8,6 +8,7 @@ using namespace std;
 int main() {
     vector<int> massif_1;
     vector<int> massif_2;
+    vector<int> massif_3 = {};
     string line1, line2;
 
     cout << "Введите символы через пробел для массива 1: ";
@@ -49,12 +50,37 @@ int main() {
         cout << "В массиве 2 отсутствуют плохие символы" << endl;
     }
 
-    
+    if (massif_1.size() < 8) {
+        while (massif_1.size() != 8) {
+            massif_1.insert(massif_1.begin(), 0);
+        }
+    }
+    if (massif_2.size() < 8) {
+        while (massif_2.size() != 8) {
+            massif_2.insert(massif_2.begin(), 0);
+        }
+    }
+
+    for (int i = 0; i < massif_1.size(); ++i) {
+        if (massif_1[i] == massif_2[i]) {
+            massif_3.push_back(massif_1[i]);
+        }
+        else {
+            massif_3.push_back(0);
+        }
+    }
+
     cout << "Массив 1: ";
     for (int i : massif_1) {
         std::cout << i << " ";
     }
-
-
+    cout << endl << "Массив 2: ";
+    for (int i : massif_2) {
+        std::cout << i << " ";
+    }
+    cout << endl << "Результат конъюнкции: ";
+    for (int i : massif_3) {
+        std::cout << i << " ";
+    }
 
 }
