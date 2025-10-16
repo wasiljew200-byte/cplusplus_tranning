@@ -5,62 +5,36 @@
 
 using namespace std;
 
-int main() {
-    vector<int> massif_1;
-    vector<int> massif_2;
-    vector<int> massif_3 = {};
-    string line1, line2;
-
-    cout << "Введите символы через пробел для массива 1: ";
-    getline(std::cin, line1);
-    stringstream ss1(line1);
+vector<int> create_new_massif() {
+    cout << "Введите символы через пробел для массива: ";
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
     int num;
-    while (ss1 >> num) {
-        massif_1.push_back(num);
-    }
-    cout << "Введите символы через пробел для массива 2: ";
-    getline(std::cin, line2);
-    stringstream ss2(line2);
-    while (ss2 >> num) {
-        massif_2.push_back(num);
+    vector<int> massif = {};
+    while (ss >> num) {
+        massif.push_back(num);
     }
 
-    int k = 0;
-    for (int i : massif_1) {
-        if (i != 0 && i != 1) {
-            k++;
-        }
-    }
-    if (k > 0) {
-        cout << "В массиве 1 присутствуют плохие символы" << endl;
-    }
-    else {
-        cout << "В массиве 1 отсутствуют плохие символы" << endl;
-    }
-    k = 0;
-    for (int i : massif_2) {
-        if (i != 0 && i != 1) {
-            k++;
-        }
-    }
-    if (k > 0) {
-        cout << "В массиве 2 присутствуют плохие символы" << endl;
-    }
-    else {
-        cout << "В массиве 2 отсутствуют плохие символы" << endl;
-    }
-
-    if (massif_1.size() < 8) {
-        while (massif_1.size() != 8) {
-            massif_1.insert(massif_1.begin(), 0);
-        }
-    }
-    if (massif_2.size() < 8) {
-        while (massif_2.size() != 8) {
-            massif_2.insert(massif_2.begin(), 0);
+    if (massif.size() < 8) {
+        while (massif.size() != 8) {
+            massif.insert(massif.begin(), 0);
         }
     }
 
+    return massif;
+}
+
+void print_massif(vector<int> massif, int k){
+    cout << "Массив " << k << ": ";
+    for (int i : massif) {
+        cout << i << " ";
+    }
+    cout << endl;
+} 
+
+vector<int> conjunction_massif(vector<int> massif_1, vector<int> massif_2){
+    vector<int> massif_3 = {};
     for (int i = 0; i < massif_1.size(); ++i) {
         if (massif_1[i] == massif_2[i]) {
             massif_3.push_back(massif_1[i]);
@@ -69,18 +43,33 @@ int main() {
             massif_3.push_back(0);
         }
     }
+    return massif_3;
+}
 
-    cout << "Массив 1: ";
-    for (int i : massif_1) {
-        std::cout << i << " ";
+void check_massif(vector<int> massif, int k1){
+    int k = 0;
+    for (int i : massif) {
+        if (i != 0 && i != 1) {
+            k++;
+        }
     }
-    cout << endl << "Массив 2: ";
-    for (int i : massif_2) {
-        std::cout << i << " ";
+    if (k > 0) {
+        cout << "В массиве" << k1 << "присутствуют плохие символы" << endl;
     }
-    cout << endl << "Результат конъюнкции: ";
-    for (int i : massif_3) {
-        std::cout << i << " ";
+    else {
+        cout << "В массиве" << k1 << "отсутствуют плохие символы" << endl;
     }
+}
 
+int main() {
+    vector<int> massif_1 = create_new_massif();
+    vector<int> massif_2 = create_new_massif();
+
+    print_massif(massif_1, 1);
+    print_massif(massif_2, 2);
+    check_massif(massif_1, 1);
+    check_massif(massif_2, 2);
+    
+    vector<int> massif_3 = conjunction_massif(massif_1, massif_2);
+    print_massif(massif_3, 3);
 }
