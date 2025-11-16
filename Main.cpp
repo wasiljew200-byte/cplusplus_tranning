@@ -1,0 +1,21 @@
+#include <iostream>
+#include "massife.h"
+using namespace std;
+
+int main() {
+    Massife m1, m2;
+    
+    m1.create_new_massif();
+    m2.create_new_massif();
+    
+    m1.print_massif(1);
+    m2.print_massif(2);
+    
+    m1.check_massif(1);
+    m2.check_massif(2);
+    
+    Massife m3 = m1.conjunction_massif(m2);
+    m3.print_massif(3);
+
+    return 0;
+}
