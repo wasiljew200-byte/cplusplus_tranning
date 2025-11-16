@@ -1,4 +1,4 @@
-#include "Massife.h"
+#include "massife.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@ Massife::Massife() {
     massif = vector<int> (8, 0);
 }
 
-Massife::Massife(const vector<int> input_massif) {
+Massife::Massife(vector<int> input_massif) {
     if (input_massif.size() < 8) {
         massif = input_massif;
          while (massif.size() != 8) {
@@ -23,7 +23,7 @@ Massife::Massife(const vector<int> input_massif) {
 }
 
 void Massife::create_new_massif() {
-    cout << "Введите символы через пробел для м213ассива: ";
+    cout << "Введите символы через пробел для массива: ";
     string line;
     getline(cin, line);
     stringstream ss(line);
@@ -48,7 +48,7 @@ void Massife::print_massif(int k) {
     cout << endl;
 }
 
-Massife Massife::conjunction_massif(const Massife other) {
+Massife Massife::conjunction_massif(Massife other) {
     vector<int> result_massif;
     for (int i = 0; i < massif.size(); ++i) {
         if (massif[i] == other.massif[i]) {
@@ -68,10 +68,10 @@ void Massife::check_massif(int k1) {
         }
     }
     if (k > 0) {
-        cout << "В массиве" << k1 << "присутствуют плохие символы" << endl;
+        cout << "В массиве " << k1 << " присутствуют плохие символы" << endl;
     }
     else {
-        cout << "В массиве" << k1 << "отсутствуют плохие символы" << endl;
+        cout << "В массиве " << k1 << " отсутствуют плохие символы" << endl;
     }
 }
 

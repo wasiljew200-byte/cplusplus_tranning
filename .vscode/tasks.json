@@ -2,6 +2,30 @@
     "tasks": [
         {
             "type": "cppbuild",
+            "label": "C/C++: g++.exe сборка проекта",
+            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}\\Main.cpp",
+                "${workspaceFolder}\\massife.cpp",
+                "-o",
+                "${workspaceFolder}\\program.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Компиляция всего проекта"
+        },
+        {
+            "type": "cppbuild",
             "label": "C/C++: g++.exe сборка активного файла",
             "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
             "args": [
@@ -17,10 +41,7 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "detail": "Задача создана отладчиком."
         }
     ],
