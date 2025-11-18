@@ -17,5 +17,8 @@ int main() {
     Massife m3 = m1.conjunction_massif(m2);
     m3.print_massif(3);
 
+    Massife m4 = m1;
+    m4.print_massif(4);
+    
     return 0;
 }

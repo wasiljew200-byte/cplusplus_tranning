@@ -11,6 +11,8 @@ class Massife {
     public:
         Massife();
         Massife(vector<int> input_massif);
+        Massife(Massife& other) = default;
+        ~Massife() = default;
         void print_massif(int k);
         void create_new_massif();
         void check_massif(int k1);
