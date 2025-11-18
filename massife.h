@@ -2,8 +2,21 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <stdexcept>
 
 using namespace std;
+
+class MassifeException : public runtime_error{
+    public:
+        MassifeException(const string& message) : runtime_error(message) {
+        };
+};
+class InvalidValueException : public MassifeException {
+    public:
+        InvalidValueException(const string& message) : MassifeException(message) {
+    };
+};
+
 
 class Massife {
     vector<int> massif;
@@ -18,4 +31,6 @@ class Massife {
         void check_massif(int k1);
         Massife conjunction_massif(Massife other);
         vector<int> get_massif();
+    private:
+        void validate_massif();
 };

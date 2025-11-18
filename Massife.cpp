@@ -20,6 +20,7 @@ Massife::Massife(vector<int> input_massif) {
      else  {
         massif = input_massif;
      }
+     validate_massif();
 }
 
 void Massife::create_new_massif() {
@@ -27,17 +28,29 @@ void Massife::create_new_massif() {
     string line;
     getline(cin, line);
     stringstream ss(line);
+    string word;
     int num;
     massif.clear();
-    while (ss >> num) {
+    while (ss >> word) {
+        stringstream converter(word);
+        if (!(converter >> num)) {
+            throw InvalidValueException("Массив содержит буквы");
+        }
+        char r;
+        if (converter >> r) {
+            throw InvalidValueException("Массив содержит смешанные символы");
+        }
         massif.push_back(num);
     }
-
+    if (massif.empty()) {
+        throw InvalidValueException("Массив должен содержать хотя бы одно значение");
+    }
     if (massif.size() < 8) {
         while (massif.size() != 8) {
             massif.insert(massif.begin(), 0);
         }
     }
+    validate_massif();
 }
 
 void Massife::print_massif(int k) {
@@ -77,4 +90,12 @@ void Massife::check_massif(int k1) {
 
 vector<int> Massife::get_massif() {
     return massif;
+}
+
+void Massife::validate_massif() {
+    for (int k : massif) {
+        if (k != 0 && k != 1) {
+            throw InvalidValueException("В массиве обнаружено недопустимые символы");
+        }
+    }
 }
