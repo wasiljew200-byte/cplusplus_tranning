@@ -34,16 +34,16 @@ void Massife::create_new_massif() {
     while (ss >> word) {
         stringstream converter(word);
         if (!(converter >> num)) {
-            throw InvalidValueException("Массив содержит буквы");
+            throw MassifeException("Массив содержит буквы");
         }
         char r;
         if (converter >> r) {
-            throw InvalidValueException("Массив содержит смешанные символы");
+            throw MassifeException("Массив содержит смешанные символы");
         }
         massif.push_back(num);
     }
     if (massif.empty()) {
-        throw InvalidValueException("Массив должен содержать хотя бы одно значение");
+        throw MassifeException("Массив должен содержать хотя бы одно значение");
     }
     if (massif.size() < 8) {
         while (massif.size() != 8) {
@@ -95,7 +95,54 @@ vector<int> Massife::get_massif() {
 void Massife::validate_massif() {
     for (int k : massif) {
         if (k != 0 && k != 1) {
-            throw InvalidValueException("В массиве обнаружено недопустимые символы");
+            throw MassifeException("В массиве обнаружено недопустимые символы");
         }
     }
+}
+
+Massife& Massife::operator=(const Massife& other) {
+    if (this == &other) {
+        return *this;
+    }
+    massif = other.massif;
+    return *this;
+}
+
+Massife Massife::operator<<(int k2) {
+    vector<int> result = massif;
+    for (int i = 0; i < k2; ++i) {
+        int first = result[0];
+        for (size_t j = 0; j < result.size() - 1; ++j) {
+            result[j] = result[j + 1];
+        }
+        result[result.size() - 1] = first;
+    }
+    return Massife(result);
+}
+
+Massife Massife::operator>>(int k3) {
+    vector<int> result = massif;
+    for (int i = 0; i < k3; ++i) {
+        int last = result[result.size() - 1];
+        for (size_t j = result.size() - 1; j > 0; --j) {
+            result[j] = result[j - 1];
+        }
+        result[0] = last;
+    }
+    return Massife(result);
+}
+
+Massife Massife::operator&(Massife& other) {
+    vector<int> result;
+    for (size_t i = 0; i < massif.size(); ++i) {
+        result.push_back(massif[i] & other.massif[i]);
+    }
+    return Massife(result);
+}
+
+int Massife::operator[](int index) {
+    if (index < 0 || index >= static_cast<int>(massif.size())) {
+        throw MassifeException("Индекс выходит за пределы массива");
+    }
+    return massif[index];
 }

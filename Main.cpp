@@ -19,6 +19,13 @@ int main() {
 
     Massife m4 = m1;
     m4.print_massif(4);
-    
+    cout << m4[4] << endl;
+    Massife m5 = m4 << 3;
+    m5.print_massif(5);
+    m5 = m4 >> 4;
+    m5.print_massif(5);
+    m5 = m1 & m2;
+    m5.print_massif(5);
+
     return 0;
 }

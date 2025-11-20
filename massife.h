@@ -11,12 +11,6 @@ class MassifeException : public runtime_error{
         MassifeException(const string& message) : runtime_error(message) {
         };
 };
-class InvalidValueException : public MassifeException {
-    public:
-        InvalidValueException(const string& message) : MassifeException(message) {
-    };
-};
-
 
 class Massife {
     vector<int> massif;
@@ -31,6 +25,11 @@ class Massife {
         void check_massif(int k1);
         Massife conjunction_massif(Massife other);
         vector<int> get_massif();
+        Massife& operator=(const Massife& other);
+        Massife operator<<(int k2);
+        Massife operator>>(int k3);
+        Massife operator&(Massife& other);
+        int operator[](int index);
     private:
         void validate_massif();
 };
